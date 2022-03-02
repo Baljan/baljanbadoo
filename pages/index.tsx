@@ -42,25 +42,54 @@ const Home: NextPage = () => {
   // Get random element from a list
   const [target, setTarget] = useState<Target>(getRandomElement(targets));
   const [counter, setCounter] = useState(0);
+  const [exitDirection, setExitDirection] = useState<SwipeType>("like");
 
   const submitSwipe = (swipeType: SwipeType) => {
+    setExitDirection(swipeType);
     setTarget(getRandomElement(targets));
     setCounter((i) => i + 1);
+  };
+
+  const variants = {
+    initial: {
+      scale: 0,
+      opacity: 0,
+      x: 0,
+      y: 0,
+    },
+    main: {
+      scale: 1,
+      opacity: 1,
+      x: 0,
+      y: 0,
+    },
+    exit: (d: SwipeType) => ({
+      scale: 0.5,
+      opacity: 1,
+      x: d == "like" ? "150%" : d == "nope" ? "-150%" : 0,
+      y: d == "superlike" ? "-100%" : 0,
+    }),
   };
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Baljanbadoo</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"
+        />
       </Head>
 
       <main className={styles.main}>
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={counter}
-            initial={{ scale: 0, opacity: 1 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
+            variants={variants}
+            custom={exitDirection}
+            initial="initial"
+            animate="main"
+            exit="exit"
             className={styles.swipeCard}
             drag
             dragElastic={0.2}
@@ -78,7 +107,6 @@ const Home: NextPage = () => {
                 swipeType = "superlike";
               }
               if (swipeType) {
-                console.log(swipeType);
                 submitSwipe(swipeType);
               }
             }}
@@ -88,10 +116,7 @@ const Home: NextPage = () => {
             }}
           >
             <div className={styles.swipeCardImage}>
-              <img
-                src={target.image}
-                
-              />
+              <img src={target.image} />
             </div>
             <h2>{target.name}</h2>
             <div className={`${styles.swipeHint} ${styles.swipeHintLike}`}>

@@ -37,7 +37,11 @@ function getRandomElement<T>(items: T[]): T {
 
 const Home: NextPage = () => {
   const x = useMotionValue(0);
+  const y = useMotionValue(0);
   const rotation = useTransform(x, [-600, 0, 600], ["10deg", "0deg", "-10deg"]);
+  const like = useTransform(x, [50, 250], [0, 1]);
+  const superlike = useTransform(y, [-250, -50], [1, 0]);
+  const nope = useTransform(x, [-250, -50], [1, 0]);
 
   // Get random element from a list
   const [target, setTarget] = useState<Target>(getRandomElement(targets));
@@ -112,6 +116,7 @@ const Home: NextPage = () => {
             }}
             style={{
               x,
+              y,
               rotate: rotation,
             }}
           >
@@ -119,15 +124,24 @@ const Home: NextPage = () => {
               <img src={target.image} />
             </div>
             <h2>{target.name}</h2>
-            <div className={`${styles.swipeHint} ${styles.swipeHintLike}`}>
+            <motion.div
+              className={`${styles.swipeHint} ${styles.swipeHintLike}`}
+              style={{ opacity: like }}
+            >
               Like
-            </div>
-            <div className={`${styles.swipeHint} ${styles.swipeHintNope}`}>
+            </motion.div>
+            <motion.div
+              className={`${styles.swipeHint} ${styles.swipeHintNope}`}
+              style={{ opacity: nope }}
+            >
               Nope
-            </div>
-            <div className={`${styles.swipeHint} ${styles.swipeHintSuperlike}`}>
+            </motion.div>
+            <motion.div
+              className={`${styles.swipeHint} ${styles.swipeHintSuperlike}`}
+              style={{ opacity: superlike }}
+            >
               Superlike
-            </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
         <div className={styles.buttonRow}>

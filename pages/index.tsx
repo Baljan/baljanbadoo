@@ -22,12 +22,12 @@ type Target = {
 const targets: Target[] = [
   {
     id: "delicatoboll",
-    image: "/images/klagg/delicatoboll.jpg",
+    image: "./images/klagg/delicatoboll.jpg",
     name: "Delicatoboll",
   },
   {
     id: "mazarin",
-    image: "/images/klagg/mazarin.jpg",
+    image: "./images/klagg/mazarin.jpg",
     name: "Mazarin",
   },
 ];
@@ -55,15 +55,12 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <AnimatePresence
-        exitBeforeEnter
-        >
+        <AnimatePresence exitBeforeEnter>
           <motion.div
             key={counter}
             initial={{ scale: 0, opacity: 1 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            
             className={styles.swipeCard}
             drag
             dragElastic={0.2}
@@ -91,7 +88,10 @@ const Home: NextPage = () => {
             }}
           >
             <div className={styles.swipeCardImage}>
-              <Image src={target.image} alt="Vercel Logo" layout="fill" />
+              <img
+                src={target.image}
+                
+              />
             </div>
             <h2>{target.name}</h2>
             <div className={`${styles.swipeHint} ${styles.swipeHintLike}`}>
@@ -106,13 +106,25 @@ const Home: NextPage = () => {
           </motion.div>
         </AnimatePresence>
         <div className={styles.buttonRow}>
-          <button onClick={()=>{submitSwipe("nope")}}>
+          <button
+            onClick={() => {
+              submitSwipe("nope");
+            }}
+          >
             <FaTimes />
           </button>
-          <button onClick={()=>{submitSwipe("superlike")}}>
+          <button
+            onClick={() => {
+              submitSwipe("superlike");
+            }}
+          >
             <FaStar />
           </button>
-          <button onClick={()=>{submitSwipe("like")}}>
+          <button
+            onClick={() => {
+              submitSwipe("like");
+            }}
+          >
             <FaHeart />
           </button>
         </div>

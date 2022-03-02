@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production'
-
+const isProd = process.env.NODE_ENV === "production";
+const prefix = isProd ? "/baljanbadoo" : "";
 
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: isProd ? '/baljanbadoo/' : ''
-}
+  assetPrefix: prefix,
+  publicRuntimeConfig: {
+    basePath: prefix,
+  },
+  basePath: prefix,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

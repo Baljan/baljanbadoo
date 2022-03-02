@@ -9,8 +9,8 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <meta name="description" content="Baljans Balla Blipp" />
           {/* <meta name="theme-color" content={BaljanColors.BrightBlue} /> */}
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/images/pwa-icon-192.png" />
+          <link rel="manifest" href="./manifest.json" />
+          <link rel="apple-touch-icon" href="./images/pwa-icon-192.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"

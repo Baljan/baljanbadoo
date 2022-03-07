@@ -1,7 +1,4 @@
-.container {
-  padding: 0 2rem;
-  overflow: hidden;
-}
+
 
 .main {
   min-height: 100vh;
@@ -11,86 +8,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.swipeCard {
-  border-radius: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  /* padding: 1rem; */
-  overflow: hidden;
-}
-
-.swipeCardImage {
-  width: 40rem;
-  /* height: 40rem; */
-  max-width: 60vh;
-  /* max-height: 70vh; */
-  padding-bottom: 100%;
-
-  border-radius: 1rem;
-  position: relative;
-  pointer-events: none;
-  background-color: white;
-}
-.swipeCardImage img {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-}
-
-.swipeCard h2 {
-  color: var(--blue);
-  font-size: 2rem;
-  text-align: center;
-  font-weight: normal;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-  margin: 0;
-  padding: 3rem 1rem 1rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  border-radius: 0 0 2rem 2rem;
-}
-
-.swipeHint {
-  position: absolute;
-
-  width: fit-content;
-  font-size: 4rem;
-  border: 0.5rem solid;
-  padding: 0.5rem;
-  border-radius: 0.75rem;
-
-  text-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-.swipeHintLike {
-  color: green;
-  transform: rotate(-20deg);
-  left: 10%;
-  top: 10%;
-}
-
-.swipeHintNope {
-  color: tomato;
-  transform: rotate(20deg);
-  right: 10%;
-  top: 10%;
-}
-
-.swipeHintSuperlike {
-  color: var(--blue);
-  transform: rotate(-20deg);
-  left: 0;
-  right: 0;
-  margin: auto;
-  bottom: 20%;
 }
 
 .buttonRow {

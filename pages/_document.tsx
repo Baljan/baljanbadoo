@@ -6,8 +6,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="description" content="Baljanbadoo" />
-          <link rel="icon" href="/favicon.ico" />
-          <meta name="description" content="Baljans Balla Blipp" />
+          <link rel="icon" href="/icon.svg" />
+          <meta name="description" content="Baljans Balla Badoo" />
           {/* <meta name="theme-color" content={BaljanColors.BrightBlue} /> */}
           <link rel="manifest" href="./manifest.json" />
           <link rel="apple-touch-icon" href="./images/pwa-icon-192.png" />

@@ -1,4 +1,9 @@
-import { AnimatePresence, motion, useMotionValue, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 import { SwipeType, Target } from "./types";
 import styles from "./swipeCard.module.css";
 
@@ -27,12 +32,18 @@ const variants = {
 };
 
 type Props = {
-  target: Target | null,
-  exitDirection: SwipeType,
-  submitSwipe(swipeType: SwipeType): void 
-}
+  disabled: boolean;
+  target: Target | null;
+  exitDirection: SwipeType;
+  submitSwipe(swipeType: SwipeType): void;
+};
 
-export default function SwipeCard({target, exitDirection,submitSwipe}: Props) {
+export default function SwipeCard({
+  target,
+  exitDirection,
+  submitSwipe,
+  disabled,
+}: Props) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotation = useTransform(x, [-600, 0, 600], ["10deg", "0deg", "-10deg"]);
@@ -50,7 +61,7 @@ export default function SwipeCard({target, exitDirection,submitSwipe}: Props) {
           animate="main"
           exit="exit"
           className={styles.swipeCard}
-          drag
+          drag={!disabled}
           dragElastic={0.2}
           dragSnapToOrigin
           onDragEnd={(e, info) => {

@@ -1,20 +1,20 @@
-
 import {
   GetStaticPaths,
-  GetStaticProps,
   GetStaticPropsContext,
-  InferGetStaticPropsType,
-  NextPage,
+  InferGetStaticPropsType
 } from "next";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaHeart, FaStar, FaTimes } from "react-icons/fa";
 import items from "../../app/items";
-import SwipeCard from "../../app/swipeCard";
-import { SwipeType, Target } from "../../app/types";
-import { shuffle } from "../../app/utils";
 
-import styles from "../../styles/Home.module.css";
+// Import dynamically to stop server side rendering of the actual app,
+// head tags are still server side rendered.
+const SwipeScreen = dynamic(
+  () => import("../../app/swipeScreen"),
+  {
+    ssr: false,
+  }
+);
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -32,74 +32,17 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const createTargetGenerator = (targets: Target[]) => {
-  let cnt = 1;
-  return () => {
-    cnt++;
-    return shuffle(targets.map((t) => ({ ...t, iter: cnt })));
-  };
-};
-
 const SwipePage = ({
   items,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  const { category } = router.query;
-
-  // Get random element from a list
-  const [queue, setQueue] = useState<Target[]>([]);
-  const [exitDirection, setExitDirection] = useState<SwipeType>("superlike");
-
-  const generateTargets = useCallback(
-    () => createTargetGenerator(items),
-    [items]
-  );
-
-  useEffect(() => {
-    if (!queue.length) {
-      setQueue(generateTargets());
-    }
-  }, [queue, generateTargets]);
-
-  const submitSwipe = (swipeType: SwipeType) => {
-    setExitDirection(swipeType);
-    setQueue((q) => q.slice(1));
-  };
+  const { category: categoryQuery } = router.query;
+  const category = Array.isArray(categoryQuery)
+    ? categoryQuery[0]
+    : categoryQuery!;
 
   return (
-    <main className={styles.main}>
-      <h1>
-        Baljans Balla Badoo
-      </h1>
-      <SwipeCard
-        target={queue.length ? queue[0] : null}
-        exitDirection={exitDirection}
-        submitSwipe={submitSwipe}
-      />
-      <div className={styles.buttonRow}>
-        <button
-          onClick={() => {
-            submitSwipe("nope");
-          }}
-        >
-          <FaTimes />
-        </button>
-        <button
-          onClick={() => {
-            submitSwipe("superlike");
-          }}
-        >
-          <FaStar />
-        </button>
-        <button
-          onClick={() => {
-            submitSwipe("like");
-          }}
-        >
-          <FaHeart />
-        </button>
-      </div>
-    </main>
+    <SwipeScreen category={category} />
   );
 };
 
